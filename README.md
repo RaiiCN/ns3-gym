@@ -27,17 +27,17 @@ apt-get install pkg-config
 3. Download and install ns3
 
 ```
-wget https://www.nsnam.org/releases/ns-allinone-3.40.tar.bz2
-tar xf ns-allinone-3.40.tar.bz2
-cd ns-allinone-3.40
+git clone https://gitlab.com/RaiiCN/ns-3-dev.git
+cd ns-3-dev
+git checkout -b ns-3.45 ns-3.45
 ```
 
 4. Clone ns3-gym repository into `contrib` directory and change the branch:
 ```
-cd ./ns-3.40/contrib
-git clone https://github.com/tkn-tub/ns3-gym.git ./opengym
+cd ./contrib
+git clone https://github.com/RaiiCN/ns3-gym.git ./opengym
 cd opengym/
-git checkout app-ns-3.36+
+git checkout app-ns-3.45
 ```
 Check [working with cmake](https://www.nsnam.org/docs/manual/html/working-with-cmake.html)
 
