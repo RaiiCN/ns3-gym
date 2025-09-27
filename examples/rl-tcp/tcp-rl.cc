@@ -46,11 +46,11 @@ TcpSocketDerived::GetTypeId (void)
   return tid;
 }
 
-TypeId
-TcpSocketDerived::GetInstanceTypeId () const
-{
-  return TcpSocketDerived::GetTypeId ();
-}
+//TypeId
+//TcpSocketDerived::GetInstanceTypeId () const
+//{
+//  return TcpSocketDerived::GetTypeId ();
+//}
 
 TcpSocketDerived::TcpSocketDerived (void)
 {

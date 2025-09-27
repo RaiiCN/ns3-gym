@@ -25,6 +25,7 @@ set(source_files
     model/container.cc
     model/opengym_env.cc
     model/opengym_interface.cc
+    model/messages.pb.cc ### 添加
     model/spaces.cc
     ${proto_source_files}
 )
@@ -49,6 +50,7 @@ build_lib(
     test/opengym-test-suite.cc
 )
 
+add_library(opengym-obj ALIAS opengym) ### 添加
 # need protobuf_generate func to generate messages
 check_function_exists(protobuf_generate protobuf_generate_exists)
 if(${protobuf_generate_exists})
@@ -59,16 +61,21 @@ else()
 endif()
 
 
-protobuf_generate(
-  TARGET ${libopengym-obj}
-  IMPORT_DIRS model/
-  LANGUAGE cpp
-  PROTOC_OUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/model
-)
-
-protobuf_generate(
-  TARGET ${libopengym-obj}
-  IMPORT_DIRS model/
-  LANGUAGE python
-  PROTOC_OUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/model/ns3gym/ns3gym
-)
+file(GLOB PROTO_FILES "${CMAKE_CURRENT_SOURCE_DIR}/contrib/opengym/model/*.proto") ### 添加
+if(PROTO_FILES) ### 添加
+  protobuf_generate(
+    TARGET ${libopengym-obj}
+    IMPORT_DIRS contrib/opengym/model/ ### 添加
+    LANGUAGE cpp
+    PROTOC_OUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/contrib/opengym/model ### 添加
+  )
+ 
+  protobuf_generate(
+    TARGET ${libopengym-obj}
+    IMPORT_DIRS contrib/opengym/model/ ### 添加
+    LANGUAGE python
+    PROTOC_OUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/contrib/opengym/model/ns3gym/ns3gym
+  )
+else() ### 添加
+  message(STATUS "No .proto files found; skipping protobuf_generate") ### 添加
+endif() ### add
